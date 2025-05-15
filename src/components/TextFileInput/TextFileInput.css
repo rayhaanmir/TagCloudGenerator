@@ -1,0 +1,23 @@
+.file-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: fit-content;
+  padding: 0.5rem;
+  font-size: 40px;
+  gap: 1rem;
+  border-radius: 1rem;
+}
+
+.file-message {
+  display: flex;
+  font-family: monospace;
+  font-size: 15px;
+  position: absolute;
+  transform: translateY(4rem);
+}
+
+.file-button-and-message {
+  display: flex;
+  flex-direction: column;
+}
