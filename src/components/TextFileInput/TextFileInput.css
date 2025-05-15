@@ -3,6 +3,7 @@
   flex-direction: row;
   align-items: center;
   max-width: fit-content;
+  white-space: nowrap;
   padding: 0.5rem;
   font-size: 40px;
   gap: 1rem;
@@ -10,11 +11,14 @@
 }
 
 .file-message {
-  display: flex;
   font-family: monospace;
   font-size: 15px;
   position: absolute;
   transform: translateY(4rem);
+  max-width: 24rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .file-button-and-message {

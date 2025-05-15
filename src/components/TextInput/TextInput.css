@@ -1,0 +1,6 @@
+.text-area {
+  resize: none;
+  width: 25rem;
+  height: 5rem;
+  border-radius: 0.5rem;
+}
