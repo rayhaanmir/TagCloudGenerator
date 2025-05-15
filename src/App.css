@@ -13,3 +13,26 @@
   gap: 5rem;
   padding-top: 2rem;
 }
+
+.button-div {
+  display: flex;
+  padding-top: 2rem;
+  justify-content: center;
+}
+
+.selection-button {
+  display: flex;
+  font-size: 1rem;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.selection-button.left {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.selection-button.right {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}

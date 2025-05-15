@@ -8,6 +8,7 @@
   font-size: 40px;
   gap: 1rem;
   border-radius: 1rem;
+  transition: background-color 0.2s ease;
 }
 
 .file-message {
