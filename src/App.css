@@ -1,8 +1,21 @@
+.app {
+  margin: 0;
+  padding: 0;
+}
+
 .main-header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   font-size: 75px;
   text-align: center;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  gap: 2rem;
+  border-bottom-style: solid;
+  border-bottom: 0.3rem solid #a1a1a1;
+  padding-bottom: 0.5rem;
+  border-bottom-width: 5px;
 }
 
 .file-input {
@@ -35,4 +48,12 @@
 .selection-button.right {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding-top: 2rem;
 }
