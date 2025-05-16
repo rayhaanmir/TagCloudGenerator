@@ -15,7 +15,7 @@ function App() {
     setText(e.target.value);
   };
 
-  const logText = (text: string) => {
+  const handleGenerate = (text: string) => {
     const tokens = text
       .toLocaleLowerCase()
       .split(
@@ -42,9 +42,9 @@ function App() {
       correctedMap.delete("i");
     }
     const wordFreqs: [string, number][] = [...correctedMap];
-    wordFreqs.sort((e1, e2) => {
-      return e2[1] - e1[1]; // Sort by descending word frequencies
-    });
+    // wordFreqs.sort(
+    //   (e1, e2) => e2[1] - e1[1] // Sort by descending word frequencies
+    // );
     setWordFreqs(wordFreqs);
   };
 
@@ -63,7 +63,7 @@ function App() {
         <button
           className="selection-button left"
           disabled={!fileText}
-          onClick={() => logText(fileText)}
+          onClick={() => handleGenerate(fileText)}
         >
           Generate tag cloud
           <br />
@@ -72,7 +72,7 @@ function App() {
         <button
           className="selection-button right"
           disabled={!text}
-          onClick={() => logText(text)}
+          onClick={() => handleGenerate(text)}
         >
           Generate tag cloud
           <br />

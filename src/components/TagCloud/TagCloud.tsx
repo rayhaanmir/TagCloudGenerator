@@ -6,15 +6,21 @@ interface TagCloudProps {
 }
 
 const TagCloud = ({ wordFreqs }: TagCloudProps) => {
+  const maxFreq = wordFreqs.length > 0 ? wordFreqs[0][1] : 0;
+  const getFontSize = (freq: number): number => {
+    return (Math.log(freq + 1) / Math.log(maxFreq + 1)) * 50 + 10;
+  };
+
   return (
     <>
       {wordFreqs.map((item) => (
-        <>
-          <p>
-            "{item[0]}" has a frequency of {item[1]}
-          </p>
-          <br />
-        </>
+        <p
+          className="tag"
+          key={item[0]}
+          style={{ fontSize: getFontSize(item[1]) }}
+        >
+          {item[0]}
+        </p>
       ))}
     </>
   );
