@@ -10,6 +10,7 @@ function App() {
   const [fileText, setFileText] = useState("");
   const [text, setText] = useState("");
   const [wordFreqs, setWordFreqs] = useState<[string, number][]>([]);
+  const [maxFreq, setMaxFreq] = useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
@@ -41,11 +42,19 @@ function App() {
       correctedMap.set("I", correctedMap.get("i"));
       correctedMap.delete("i");
     }
-    const wordFreqs: [string, number][] = [...correctedMap];
-    // wordFreqs.sort(
-    //   (e1, e2) => e2[1] - e1[1] // Sort by descending word frequencies
-    // );
-    setWordFreqs(wordFreqs);
+    const wordFreqsLocal: [string, number][] = [...correctedMap];
+    const uniqueLen = wordFreqsLocal.length;
+    wordFreqsLocal.sort(
+      (e1, e2) => e1[0].localeCompare(e2[0]) // Sort alphabetically
+    );
+    let max = 0;
+    for (let i = 0; i < uniqueLen; i++) {
+      if (wordFreqsLocal[i][1] > max) {
+        max = wordFreqsLocal[i][1];
+      }
+    }
+    setMaxFreq(max);
+    setWordFreqs(wordFreqsLocal);
   };
 
   return (
@@ -80,7 +89,7 @@ function App() {
         </button>
       </div>
       <div className="tag-cloud">
-        <TagCloud wordFreqs={wordFreqs} />
+        <TagCloud wordFreqs={wordFreqs} maxFreq={maxFreq} />
       </div>
     </div>
   );

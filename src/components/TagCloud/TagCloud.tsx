@@ -3,10 +3,10 @@ import "./TagCloud.css";
 
 interface TagCloudProps {
   wordFreqs: [string, number][];
+  maxFreq: number;
 }
 
-const TagCloud = ({ wordFreqs }: TagCloudProps) => {
-  const maxFreq = wordFreqs.length > 0 ? wordFreqs[0][1] : 0;
+const TagCloud = ({ wordFreqs, maxFreq }: TagCloudProps) => {
   const getFontSize = (freq: number): number => {
     return (Math.log(freq + 1) / Math.log(maxFreq + 1)) * 50 + 10;
   };

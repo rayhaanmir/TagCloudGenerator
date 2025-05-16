@@ -52,8 +52,9 @@
 
 .tag-cloud {
   display: flex;
+  position: relative;
   flex-wrap: wrap;
   justify-content: center;
-  padding-top: 2rem;
+  padding-top: 4rem;
   gap: 0.5rem;
 }
