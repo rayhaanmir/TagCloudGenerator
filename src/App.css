@@ -27,6 +27,19 @@
   padding-top: 2rem;
 }
 
+.input-max {
+  display: flex;
+  margin: auto;
+  margin-top: 1rem;
+  border-radius: 0.3rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.input-max:focus {
+  border-color: #ff7070;
+}
+
 .button-div {
   display: flex;
   padding-top: 2rem;
@@ -38,6 +51,7 @@
   font-size: 1rem;
   white-space: nowrap;
   transition: background-color 0.2s ease;
+  cursor: pointer;
 }
 
 .selection-button.left {
@@ -55,6 +69,8 @@
   position: relative;
   flex-wrap: wrap;
   justify-content: center;
+  margin: auto;
   padding-top: 4rem;
   gap: 0.5rem;
+  width: 60rem;
 }

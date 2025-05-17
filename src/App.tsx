@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 import TextFileInput from "./components/TextFileInput/TextFileInput";
 import TextInput from "./components/TextInput/TextInput";
@@ -7,16 +7,19 @@ import TagCloud from "./components/TagCloud/TagCloud";
 import { FaCloud } from "react-icons/fa";
 
 function App() {
-  const [fileText, setFileText] = useState("");
-  const [text, setText] = useState("");
+  const [fileText, setFileText] = useState<string>("");
+  const [text, setText] = useState<string>("");
   const [wordFreqs, setWordFreqs] = useState<[string, number][]>([]);
-  const [maxFreq, setMaxFreq] = useState(0);
+  const [maxFreq, setMaxFreq] = useState<number>(0);
+  const [maxWords, setMaxWords] = useState<string>("");
+  const startTime = useRef<number | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
 
   const handleGenerate = (text: string) => {
+    startTime.current = performance.now();
     const tokens = text
       .toLocaleLowerCase()
       .split(
@@ -43,7 +46,16 @@ function App() {
       correctedMap.delete("i");
     }
     const wordFreqsLocal: [string, number][] = [...correctedMap];
-    const uniqueLen = wordFreqsLocal.length;
+    let uniqueLen = wordFreqsLocal.length;
+    // Shorten array if necessary
+    const maxWordsNum: number = parseInt(maxWords);
+    if (maxWordsNum < uniqueLen) {
+      wordFreqsLocal.sort(
+        (e1, e2) => e2[1] - e1[1] // Sort by descending word frequencies
+      );
+      wordFreqsLocal.splice(maxWordsNum);
+      uniqueLen = maxWordsNum;
+    }
     wordFreqsLocal.sort(
       (e1, e2) => e1[0].localeCompare(e2[0]) // Sort alphabetically
     );
@@ -57,6 +69,24 @@ function App() {
     setWordFreqs(wordFreqsLocal);
   };
 
+  const handleRenderComplete = () => {
+    if (startTime.current !== null) {
+      const elapsed = performance.now() - startTime.current;
+      console.log(
+        `Tag cloud generated in ${(elapsed / 1000).toFixed(3)} seconds`
+      );
+      startTime.current = null; // Reset
+    }
+  };
+
+  const handleSetMaxWords = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    // Only permit number sequences to represent max word counts
+    if (/^\d*$/.test(value)) {
+      setMaxWords(value);
+    }
+  };
+
   return (
     <div className="app">
       <header className="main-header">
@@ -68,6 +98,12 @@ function App() {
         <h1>Or</h1>
         <TextInput text={text} handleChange={handleChange} />
       </div>
+      <input
+        className="input-max"
+        value={maxWords}
+        onChange={handleSetMaxWords}
+        placeholder="Max word count (Optional)"
+      />
       <div className="button-div">
         <button
           className="selection-button left"
@@ -89,7 +125,11 @@ function App() {
         </button>
       </div>
       <div className="tag-cloud">
-        <TagCloud wordFreqs={wordFreqs} maxFreq={maxFreq} />
+        <TagCloud
+          wordFreqs={wordFreqs}
+          maxFreq={maxFreq}
+          onRenderComplete={handleRenderComplete}
+        />
       </div>
     </div>
   );
