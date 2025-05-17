@@ -25,7 +25,7 @@ function App() {
       .split(
         /(?<![A-Za-zÀ-ÖØ-öø-ÿ])'|'(?![A-Za-zÀ-ÖØ-öø-ÿ])|[^A-Za-zÀ-ÖØ-öø-ÿ']+/
       ) // Preserve contractions
-      .filter(Boolean);
+      .filter(Boolean); // Get rid of empty tokens
     const map = new Map(); // Create word frequency map
     const len = tokens.length;
     for (let i = 0; i < len; i++) {
