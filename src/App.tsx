@@ -81,8 +81,9 @@ function App() {
 
   const handleSetMaxWords = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    // Only permit number sequences to represent max word counts
-    if (/^\d*$/.test(value)) {
+    // Only permit number sequences not starting with 0 to represent
+    // max word counts (positive integers or empty string)
+    if (/^([1-9]\d*|)$/.test(value)) {
       setMaxWords(value);
     }
   };
