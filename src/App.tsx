@@ -22,6 +22,7 @@ function App() {
     startTime.current = performance.now();
     const tokens = text
       .toLocaleLowerCase()
+      .replace(/’/g, "'") // Normalize apostrophes
       .split(
         /(?<![A-Za-zÀ-ÖØ-öø-ÿ])'|'(?![A-Za-zÀ-ÖØ-öø-ÿ])|[^A-Za-zÀ-ÖØ-öø-ÿ']+/
       ) // Preserve contractions
