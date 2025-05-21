@@ -15,9 +15,10 @@ const TagCloud = ({
   onRenderComplete,
 }: TagCloudProps) => {
   const getFontSize = (freq: number): number => {
-    return (
-      (Math.log(freq - minFreq + 1) / Math.log(maxFreq - minFreq + 1)) * 50 + 20
-    );
+    return minFreq - maxFreq === 0
+      ? 45
+      : (Math.log(freq - minFreq + 1) / Math.log(maxFreq - minFreq + 1)) * 50 +
+          20;
   };
 
   useEffect(() => {
