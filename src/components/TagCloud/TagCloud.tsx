@@ -4,12 +4,20 @@ import "./TagCloud.css";
 interface TagCloudProps {
   wordFreqs: [string, number][];
   maxFreq: number;
+  minFreq: number;
   onRenderComplete?: () => void;
 }
 
-const TagCloud = ({ wordFreqs, maxFreq, onRenderComplete }: TagCloudProps) => {
+const TagCloud = ({
+  wordFreqs,
+  maxFreq,
+  minFreq,
+  onRenderComplete,
+}: TagCloudProps) => {
   const getFontSize = (freq: number): number => {
-    return (Math.log(freq + 1) / Math.log(maxFreq + 1)) * 50 + 10;
+    return (
+      (Math.log(freq - minFreq + 1) / Math.log(maxFreq - minFreq + 1)) * 50 + 20
+    );
   };
 
   useEffect(() => {

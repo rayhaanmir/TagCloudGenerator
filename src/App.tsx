@@ -11,6 +11,7 @@ function App() {
   const [text, setText] = useState<string>("");
   const [wordFreqs, setWordFreqs] = useState<[string, number][]>([]);
   const [maxFreq, setMaxFreq] = useState<number>(0);
+  const [minFreq, setMinFreq] = useState<number>(0);
   const [maxWords, setMaxWords] = useState<string>("");
   const startTime = useRef<number | null>(null);
 
@@ -60,13 +61,17 @@ function App() {
     wordFreqsLocal.sort(
       (e1, e2) => e1[0].localeCompare(e2[0]) // Sort alphabetically
     );
-    let max = 0;
-    for (let i = 0; i < uniqueLen; i++) {
+    let max = wordFreqsLocal[0][1];
+    let min = max;
+    for (let i = 1; i < uniqueLen; i++) {
       if (wordFreqsLocal[i][1] > max) {
         max = wordFreqsLocal[i][1];
+      } else if (wordFreqsLocal[i][1] < min) {
+        min = wordFreqsLocal[i][1];
       }
     }
     setMaxFreq(max);
+    setMinFreq(min);
     setWordFreqs(wordFreqsLocal);
   };
 
@@ -130,6 +135,7 @@ function App() {
         <TagCloud
           wordFreqs={wordFreqs}
           maxFreq={maxFreq}
+          minFreq={minFreq}
           onRenderComplete={handleRenderComplete}
         />
       </div>
